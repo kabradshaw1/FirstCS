@@ -1,3 +1,8 @@
 namespace SecondApi.Models;
 
-public record User(string Name, int Age);
+public class User
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public int Age { get; set; }
+}

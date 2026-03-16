@@ -1,27 +1,24 @@
 using SecondApi.Models;
-/* 
-This is an example of simple class in C#. Classes are a fundemental building
-block of object oriented programming, and they allow you to create your own data types
-and define the properties and methods that they have. 
-*/
+using SecondApi.Data;
+using Microsoft.EntityFrameworkCore;
+
 public class UserService
 {
-    /*
-        
-    */
-    private static List<User> users = new()
-    {
-        new User("Kyle", 30),
-        new User("Alice", 25)
-    };
+    private readonly AppDbContext _context;
 
-    public List<User> GetUsers()
+    public UserService(AppDbContext context)
     {
-        return users;
+        _context = context;
     }
 
-    public void AddUser(User user)
+    public async Task<List<User>> GetUsers()
     {
-        users.Add(user);
+        return await _context.Users.ToListAsync();
+    }
+
+    public async Task AddUser(User user)
+    {
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
     }
 }
