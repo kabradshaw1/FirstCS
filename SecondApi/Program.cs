@@ -14,3 +14,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapGet("/users", (UserService service) => 
+{
+    return service.GetUsers();
+});
