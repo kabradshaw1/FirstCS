@@ -18,6 +18,7 @@ public class UserService
 
     public async Task AddUser(User user)
     {
+        Console.WriteLine($"Adding {user.Name}");
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
     }
