@@ -1,0 +1,14 @@
+/Users/kylebradshaw/repos/firstc/HelloCSharp/bin/Debug/net10.0/HelloCSharp
+/Users/kylebradshaw/repos/firstc/HelloCSharp/bin/Debug/net10.0/HelloCSharp.deps.json
+/Users/kylebradshaw/repos/firstc/HelloCSharp/bin/Debug/net10.0/HelloCSharp.runtimeconfig.json
+/Users/kylebradshaw/repos/firstc/HelloCSharp/bin/Debug/net10.0/HelloCSharp.dll
+/Users/kylebradshaw/repos/firstc/HelloCSharp/bin/Debug/net10.0/HelloCSharp.pdb
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/HelloCSharp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/HelloCSharp.AssemblyInfoInputs.cache
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/HelloCSharp.AssemblyInfo.cs
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/HelloCSharp.csproj.CoreCompileInputs.cache
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/HelloCSharp.dll
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/refint/HelloCSharp.dll
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/HelloCSharp.pdb
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/HelloCSharp.genruntimeconfig.cache
+/Users/kylebradshaw/repos/firstc/HelloCSharp/obj/Debug/net10.0/ref/HelloCSharp.dll
