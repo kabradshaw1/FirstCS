@@ -15,24 +15,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
 
 // This is the first example endpoint.  When the server runs, putting 
 // http://localhost:5000/hello in the browser will return the string "Hello Kyle".  
@@ -68,7 +50,11 @@ app.MapGet("/user", () =>
 app.MapGet("/add", (int a, int b) => a + b);
 
 // This example is for a POST endpoint.  This requires the use of a record
-// in C# records are placed at the end.
+// in C# records are placed at the end.  The User record should be created first.
+// This tells the endpoint that will will expect a JSON object in the body of the request 
+//that can be deserialized into a User record.
+// it will allow auto completion unce user. is typed to tell you what properties are
+// available.  
 app.MapPost("/users", (User user) =>
 {
     return $"Created user {user.Name} age {user.Age}";
@@ -76,9 +62,11 @@ app.MapPost("/users", (User user) =>
 
 
 app.Run();
-record User(string Name, int Age);
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+// This record defines the structure of the User object that we 
+// expect to receive in the POST request to the /users endpoint.
+// It has two properties: Name, which is a string, and Age, which is an integer.
+// a string is a basic data type in most programing languages, 
+//and it represents a sequence of characters in double or single quotes.  
+//An integer is a whole number, which can be positive, negative, or zero.
+record User(string Name, int Age);
