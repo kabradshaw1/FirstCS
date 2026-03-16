@@ -1,4 +1,4 @@
-record User(string Name, int Age);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -67,13 +67,16 @@ app.MapGet("/user", () =>
 // parsed from the query string and passed to the lambda function, which returns their sum.
 app.MapGet("/add", (int a, int b) => a + b);
 
-
-
+// This example is for a POST endpoint.  This requires the use of a record
+// in C# records are placed at the end.
 app.MapPost("/users", (User user) =>
 {
     return $"Created user {user.Name} age {user.Age}";
 });
+
+
 app.Run();
+record User(string Name, int Age);
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
