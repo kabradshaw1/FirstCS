@@ -43,7 +43,7 @@ app.MapGet("/user", () =>
 });
 
 // This example shows the use of query parameters.  Putting http://localhost:5000/add?a=5&b=10
-//  in the browser will return 15.  This is another way to pass information to the database,
+// in the browser will return 15.  This is another way to pass information to the database,
 // instead of putting them in a json.  It also starts to demonstrate some of the syntax of C#, 
 // such as lambda expressions and type inference.  The parameters a and b are automatically 
 // parsed from the query string and passed to the lambda function, which returns their sum.
@@ -69,4 +69,4 @@ app.Run();
 // a string is a basic data type in most programing languages, 
 //and it represents a sequence of characters in double or single quotes.  
 //An integer is a whole number, which can be positive, negative, or zero.
-record User(string Name, int Age);
+public record User(string Name, int Age);
