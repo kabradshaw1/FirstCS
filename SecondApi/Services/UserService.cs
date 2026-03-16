@@ -1,3 +1,4 @@
+using SecondApi.Models;
 /* 
 This is an example of simple class in C#. Classes are a fundemental building
 block of object oriented programming, and they allow you to create your own data types

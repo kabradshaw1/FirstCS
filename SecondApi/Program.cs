@@ -1,3 +1,6 @@
+using System.Reflection.Metadata;
+
+using SecondApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +17,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/users", (UserService service) => 
+app.MapPost("/users", (User user, UserService service) => 
 {
-    return service.GetUsers();
+    service.AddUser(user);
+    return Results.Created("/users", user);
 });
+
