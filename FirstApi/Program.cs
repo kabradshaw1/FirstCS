@@ -1,3 +1,4 @@
+record User(string Name, int Age);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -67,6 +68,11 @@ app.MapGet("/user", () =>
 app.MapGet("/add", (int a, int b) => a + b);
 
 
+
+app.MapPost("/users", (User user) =>
+{
+    return $"Created user {user.Name} age {user.Age}";
+});
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
