@@ -39,6 +39,7 @@ dependencies:
   # We'll use this to talk to our SecondApi backend running on localhost:5026.
   # Docs: https://pub.dev/packages/http
   http: ^1.2.0
+  web_socket_channel: ^3.0.3
 
 dev_dependencies:
   flutter_test:
