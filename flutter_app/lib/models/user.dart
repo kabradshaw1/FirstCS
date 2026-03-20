@@ -24,11 +24,7 @@ class User {
   // The `const` constructor allows Dart to create User instances at compile
   // time (useful for test fixtures). `required` means callers MUST supply
   // each named argument — similar to non-optional parameters in C#.
-  const User({
-    required this.id,
-    required this.name,
-    required this.age,
-  });
+  const User({required this.id, required this.name, required this.age});
 
   // ---------------------------------------------------------------------------
   // fromJson — factory constructor for deserialisation
@@ -46,13 +42,29 @@ class User {
   //   { "id": 1, "name": "Alice", "age": 30 }
   // The keys match the C# record property names (lowercased by the serialiser).
   factory User.fromJson(Map<String, dynamic> json) {
+    final id = json['id'];
+    final name = json['name'];
+    final age = json['age'];
+
+    if (id is! int) {
+      throw FormatException('invalid or missing "id": $id');
+    }
+
+    if (name is! String || name.isEmpty) {
+      throw FormatException('Invalid or missing "name": $name');
+    }
+
+    if (age is! int || age < 0) {
+      throw FormatException('Invalid "age": $age');
+    }
+
     return User(
       // `as int` casts the dynamic value to int. If the JSON is malformed
       // this will throw a TypeError at runtime — good for catching API bugs
       // early during development.
-      id: json['id'] as int,
-      name: json['name'] as String,
-      age: json['age'] as int,
+      id: id,
+      name: name,
+      age: age,
     );
   }
 
@@ -65,10 +77,7 @@ class User {
   // Note: `id` is omitted because the API assigns it automatically (just like
   // an auto-increment primary key in a database).
   Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'age': age,
-    };
+    return {'name': name, 'age': age};
   }
 
   // toString() is handy for debugging — print(user) will show the fields.

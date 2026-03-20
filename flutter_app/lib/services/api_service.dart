@@ -55,26 +55,30 @@ class ApiService {
 
     // `await` pauses execution here until the HTTP response arrives.
     // http.get() sends a GET request and returns an http.Response.
-    final response = await http.get(uri);
+    try {
+      final response = await http.get(uri);
+      // response.statusCode is the HTTP status code (200, 404, 500, etc.).
+      // 200 means OK — the request succeeded.
+      if (response.statusCode == 200) {
+        // response.body is the raw response string (JSON text).
+        // jsonDecode() parses it into a Dart object.
+        // The API returns a JSON array, so we cast to List<dynamic>.
+        final List<dynamic> jsonList =
+            jsonDecode(response.body) as List<dynamic>;
 
-    // response.statusCode is the HTTP status code (200, 404, 500, etc.).
-    // 200 means OK — the request succeeded.
-    if (response.statusCode == 200) {
-      // response.body is the raw response string (JSON text).
-      // jsonDecode() parses it into a Dart object.
-      // The API returns a JSON array, so we cast to List<dynamic>.
-      final List<dynamic> jsonList = jsonDecode(response.body) as List<dynamic>;
-
-      // We map each raw JSON map to a typed User using User.fromJson().
-      // `.map()` transforms every element; `.toList()` materialises the result.
-      // This is equivalent to LINQ's `.Select(...).ToList()` in C#.
-      return jsonList
-          .map((json) => User.fromJson(json as Map<String, dynamic>))
-          .toList();
-    } else {
-      // If the server returns a non-200 status we throw an Exception.
-      // The calling widget can catch this and display an error message.
-      throw Exception('Failed to load users (status ${response.statusCode})');
+        // We map each raw JSON map to a typed User using User.fromJson().
+        // `.map()` transforms every element; `.toList()` materialises the result.
+        // This is equivalent to LINQ's `.Select(...).ToList()` in C#.
+        return jsonList
+            .map((json) => User.fromJson(json as Map<String, dynamic>))
+            .toList();
+      } else {
+        // If the server returns a non-200 status we throw an Exception.
+        // The calling widget can catch this and display an error message.
+        throw Exception('Failed to load users (status ${response.statusCode})');
+      }
+    } catch (e) {
+      throw Exception('Network error: $e');
     }
   }
 
