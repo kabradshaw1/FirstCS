@@ -41,20 +41,33 @@ class ApiService {
   }
 
   Future<User> createUser(String name, int age) async {
+    if (name.trim().isEmpty) {
+      throw ArgumentError('Name cannot be empty');
+    }
+
+    if (age < 0) {
+      throw ArgumentError('Age must be positive');
+    }
+
     final uri = Uri.parse('$baseUrl/users');
+    try {
+      final response = await http.post(
+        uri,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'name': name, 'age': age}),
+      );
 
-    final response = await http.post(
-      uri,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'name': name, 'age': age}),
-    );
-
-    if (response.statusCode == 201) {
-      final Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      return User.fromJson(json);
-    } else {
-      throw Exception('Failed to create user (status ${response.statusCode})');
+      if (response.statusCode == 201) {
+        final Map<String, dynamic> json =
+            jsonDecode(response.body) as Map<String, dynamic>;
+        return User.fromJson(json);
+      } else {
+        throw Exception(
+          'Failed to create user (status ${response.statusCode}): ${response.body}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error creating user: $e');
     }
   }
 }
