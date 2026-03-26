@@ -1,11 +1,52 @@
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:flutter/material.dart';
+import 'services/websocket_service.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-final channel = WebSocketChannel.connect(Uri.parse('ws://localhost:8080/ws'));
+class WebSocketPage extends StatefulWidget {
+  const WebSocketPage({super.key});
+
+  @override
+  State<WebSocketPage> createState() => _WebSocketPageState();
+}
+
+class _WebSocketPageState extends State<WebSocketPage> {
+  final ws = WebSocketService('ws://localhost:8080/ws');
+
+  @override
+  void initState() {
+    super.initState();
+
+    ws.connect();
+
+    ws.stream.listen((message) {
+      print('Received: $message');
+    });
+  }
+
+  @override
+  void dispose() {
+    ws.disconnect();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('WebSocket Demo')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            ws.send('Hello from Flutter');
+          },
+          child: const Text('Send Message'),
+        ),
+      ),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
